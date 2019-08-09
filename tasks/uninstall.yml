@@ -1,0 +1,39 @@
+---
+# tasks file for octoprint removal
+
+- name: Disable Octoprint service.
+  service:
+    name: octoprint
+    state: stopped
+    enabled: false
+
+- name: Disable mjpg_streamer service.
+  service:
+    name: mjpg_streamer
+    state: stopped
+    enabled: false
+
+- name: Remove Octoprint service.
+  file:
+    dest: /etc/systemd/system/Octoprint.service
+    state: absent
+
+- name: Remove mjpg_streamer service.
+  file:
+    dest: /etc/systemd/system/mjpg_streamer.service
+    state: absent
+
+- name: Remove Octoprint directory.
+  file:
+    dest: "{{ install_dir }}/Octoprint"
+    state: absent
+
+- name: Remove .octoprint directory.
+  file:
+    dest: "{{ install_dir }}/.octoprint"
+    state: absent
+
+- name: Remove mjpg_streamer directories.
+  file:
+    dest: "{{ install_dir }}/mjpg-streamer"
+    state: absent

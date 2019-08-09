@@ -1,0 +1,23 @@
+galaxy_info:
+  role_name: octoprint
+  author: semu
+  description: Octoprint on Raspbian
+  company: SEMU Consulting
+
+  license: BSD
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+        - stretch
+
+  galaxy_tags:
+  - octoprint
+  - raspbian
+  - raspberrypi
+  - mjpg_streamer
+
+  dependencies:

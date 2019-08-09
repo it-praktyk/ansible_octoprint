@@ -1,0 +1,21 @@
+---
+# defaults file for octoprint
+
+octoprint_url: "https://get.octoprint.org/latest"
+octoprint_repo: "https://github.com/foosel/OctoPrint/raw/master"
+webcam_repo: "https://github.com/jacksonliam/mjpg-streamer.git"
+webcam_resolution: "1280x720"
+webcam_fps: "10"
+
+host_ip: ip_of_host
+octoprint_user: pi
+install_dir: "/home/{{ octoprint_user }}"
+octoprint_port: 5000
+webcam_user: mjpg_streamer
+webcam_dir: "{{ install_dir}}/mjpg-streamer/mjpg-streamer-experimental"
+webcam_port: 8080
+webcam_type: usb
+
+install_octoprint: true
+install_webcam: true
+uninstall_octoprint: false

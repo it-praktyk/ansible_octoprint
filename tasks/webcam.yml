@@ -1,0 +1,45 @@
+---
+# tasks file for octoprint webcam
+
+- name: Install dependencies.
+  package:
+    name:
+      - subversion
+      - libjpeg62-turbo-dev
+      - imagemagick
+      - ffmpeg
+      - libv4l-dev
+      - cmake
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add webcam user to video group.
+  user:
+    name: "{{ webcam_user }}"
+    groups: video
+    system: true
+    append: true
+
+- name: Clone mjpg-streamer repo.
+  git:
+    repo: "{{ webcam_repo }}"
+    dest: "{{ install_dir }}/mjpg-streamer"
+    version: master
+
+- name: Build mjpg-streamer from source.
+  make:
+    chdir: "{{ install_dir }}/mjpg-streamer/mjpg-streamer-experimental"
+    target: all
+
+- name: Install systemd service template.
+  template:
+    src: mjpg_streamer.service.j2
+    dest: /etc/systemd/system/mjpg_streamer.service
+    owner: "{{ webcam_user }}"
+
+- name: Start webcam streaming service.
+  systemd:
+    name: mjpg_streamer
+    enabled: true
+    state: restarted
+    daemon_reload: true
