@@ -3,12 +3,12 @@
 
 - name: Install octoprint
   include: octoprint.yml
-  when: install_octoprint and not uninstall_octoprint
+  when: install_octoprint and not uninstall_services
 
-- name: Install webcam streamer
+- name: Install mjpg_streamer
   include: webcam.yml
-  when: install_webcam and not uninstall_octoprint
+  when: install_mjpg_streamer and not uninstall_services
 
-- name: Remove octoprint and webcam
+- name: Remove octoprint and mjpg_streamer
   include: uninstall.yml
-  when: uninstall_octoprint
+  when: uninstall_services

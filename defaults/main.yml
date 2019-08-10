@@ -17,5 +17,6 @@ webcam_port: 8080
 webcam_type: usb
 
 install_octoprint: true
-install_webcam: true
-uninstall_octoprint: false
+install_mjpg_streamer: true
+uninstall_services: false
+uninstall_dependencies: false
