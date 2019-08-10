@@ -44,8 +44,9 @@ Role Variables
 - `webcam_dir`: "{{ install_dir}}/mjpg-streamer/mjpg-streamer-experimental"
 - `webcam_port`: 8080
 - `webcam_type` : "usb" (options are 'usb', 'raspi' or 'custom')
-- `webcam_resolution`: "640x480" (ensure resolution is supported by camera)
-- `webcam_fps`: "10" (frames per second)
+- `webcam_width`: 640
+- `webcam_height` : 480
+- `webcam_fps`: 10 (frames per second)
 - 'custom_input' : "input_uvc.so" (input parameters to be used with 'custom' webcam type)
 
 See https://community.octoprint.org/t/available-mjpg-streamer-configuration-options/1106
