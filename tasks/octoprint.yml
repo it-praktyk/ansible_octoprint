@@ -4,8 +4,6 @@
 - name: Install dependencies.
   package:
     name:
-      - wget
-      - vim
       - python-pip
       - python-dev
       - python-setuptools
