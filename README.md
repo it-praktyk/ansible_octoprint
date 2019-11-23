@@ -35,6 +35,9 @@ Role Variables
 - `uninstall_services` : false
 - `uninstall_dependencies` : false
 
+- `allow_usage_tracking`: true
+- `allow_error_tracking`: true
+
 - `host_ip`: 127.0.0.1
 - `octoprint_user`: pi (this is the linux user under which the service runs)
 - `install_dir`: "/home/{{ octoprint_user }}"
@@ -47,10 +50,12 @@ Role Variables
 - `webcam_width`: 640
 - `webcam_height` : 480
 - `webcam_fps`: 10 (frames per second)
-- 'custom_input' : "input_uvc.so" (input parameters to be used with 'custom' webcam type)
+- `custom_input` : "input_uvc.so" (input parameters to be used with 'custom' webcam type)
 
 See https://community.octoprint.org/t/available-mjpg-streamer-configuration-options/1106
 for available custom options.
+
+More about tracking of [the OctoPrint usage and tracking](https://tracking.octoprint.org/).
 
 Dependencies
 ------------

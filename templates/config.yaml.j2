@@ -1,3 +1,4 @@
+#jinja2: trim_blocks:False
 accessControl:
   salt:
 api:
@@ -8,12 +9,13 @@ plugins:
   discovery:
     upnpUuid:
   errortracking:
-    unique_id: 
+    enabled: {%if allow_error_tracking == true %}true{% else %}false{% endif %}
+    unique_id:
   softwareupdate:
     _config_version: 6
   tracking:
-    enabled: true
-    unique_id: 
+    enabled: {%if allow_usage_tracking == true %}true{% else %}false{% endif %}
+    unique_id:
 printerProfiles:
   default: _default
 server:

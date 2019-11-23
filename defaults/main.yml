@@ -3,6 +3,12 @@
 
 install_octoprint: true
 install_mjpg_streamer: true
+
+# Allow tracking of the octoprint usage and errors
+# More you can find at https://tracking.octoprint.org/
+allow_usage_tracking: true
+allow_error_tracking: true
+
 uninstall_services: false
 uninstall_dependencies: false
 
