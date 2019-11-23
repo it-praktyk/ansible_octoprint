@@ -34,6 +34,7 @@
     name: "{{ octoprint_url }}"
     virtualenv: "{{ install_dir }}/Octoprint/venv"
     virtualenv_command: virtualenv
+    virtualenv_python: python2
     state: present
 
 - name: Install config.yaml template.

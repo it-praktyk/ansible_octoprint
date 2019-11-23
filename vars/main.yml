@@ -13,6 +13,8 @@ octoprint_dependencies:
 _mjpg_streamer_dependencies:
   Debian:
     - libjpeg62-turbo-dev
+  Ubuntu:
+    - libjpeg8-dev
   common:
     - imagemagick
     - ffmpeg

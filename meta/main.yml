@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: octoprint
   author: semu
-  description: Octoprint on Raspbian
+  description: Octoprint on Debian or Ubuntu
   company: SEMU Consulting
 
   license: BSD
@@ -13,6 +13,9 @@ galaxy_info:
       versions:
         - buster
         - stretch
+    - name: Ubuntu
+      versions:
+        - bionic
 
   galaxy_tags:
   - octoprint
