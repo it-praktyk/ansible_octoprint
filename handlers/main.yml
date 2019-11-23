@@ -1,16 +1,16 @@
 ---
 # handlers file for octoprint
 
-- name: restart_octoprint
+- name: reload systemd
   systemd:
-    name: octoprint
-    enabled: true
-    state: restarted
     daemon_reload: true
 
-- name: restart_mjpg_streamer
-  systemd:
-    name: mjpg_streamer
-    enabled: true
+- name: restart octoprint
+  service:
+    name: octoprint
     state: restarted
-    daemon_reload: true
+
+- name: restart mjpg-streamer
+  service:
+    name: mjpg_streamer
+    state: restarted

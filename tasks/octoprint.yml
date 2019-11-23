@@ -29,19 +29,32 @@
     state: directory
     owner: "{{ octoprint_user }}"
 
-- name: Install octoprint via pip.
+- name: Install octoprint via pip - the latest verstion.
   pip:
-    name: "{{ octoprint_url }}"
+    name: "{{ latest_octoprint_url }}"
+    state: present
     virtualenv: "{{ install_dir }}/Octoprint/venv"
     virtualenv_command: virtualenv
     virtualenv_python: python2
+  when: octoprint_version == 'latest'
+
+- name: Install octoprint via pip - the defined version.
+  pip:
+    name: octoprint
+    version: "{{ octoprint_version }}"
     state: present
+    virtualenv: "{{ install_dir }}/Octoprint/venv"
+    virtualenv_command: virtualenv
+    virtualenv_python: python2
+  when: octoprint_version != 'latest'
 
 - name: Install config.yaml template.
   template:
     src: config.yaml.j2
     dest: "{{ install_dir }}/.octoprint/config.yaml"
     owner: "{{ octoprint_user }}"
+  notify:
+    - restart octoprint
 
 - name: Install init template.
   template:
@@ -55,16 +68,21 @@
     src: octoprint.default.j2
     dest: /etc/default/octoprint
     owner: "{{ octoprint_user }}"
+  notify:
+    - reload systemd
 
 - name: Install systemd service template.
   template:
     src: octoprint.service.j2
     dest: /etc/systemd/system/octoprint.service
     owner: "{{ octoprint_user }}"
+  notify:
+    - reload systemd
 
-- name: Start octoprint service.
-  systemd:
+- meta: flush_handlers
+
+- name: Enable and start octoprint service.
+  service:
     name: octoprint
     enabled: true
-    state: restarted
-    daemon_reload: true
+    state: started

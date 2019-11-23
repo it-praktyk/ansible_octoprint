@@ -12,10 +12,12 @@ allow_error_tracking: true
 uninstall_services: false
 uninstall_dependencies: false
 
-octoprint_url: "https://get.octoprint.org/latest"
-octoprint_repo: "https://github.com/foosel/OctoPrint/raw/master"
-webcam_repo: "https://github.com/jacksonliam/mjpg-streamer.git"
+octoprint_version: latest
+
+latest_octoprint_url: "https://get.octoprint.org/latest"
 install_dir: "/home/{{ octoprint_user }}"
+
+webcam_repo: "https://github.com/jacksonliam/mjpg-streamer.git"
 webcam_dir: "{{ install_dir}}/mjpg-streamer/mjpg-streamer-experimental"
 
 host_ip: 127.0.0.1
