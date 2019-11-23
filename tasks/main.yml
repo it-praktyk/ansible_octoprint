@@ -2,13 +2,13 @@
 # tasks file for octoprint
 
 - name: Install octoprint
-  include: octoprint.yml
+  include_tasks: octoprint.yml
   when: install_octoprint and not uninstall_services
 
 - name: Install mjpg_streamer
-  include: webcam.yml
+  include_tasks: webcam.yml
   when: install_mjpg_streamer and not uninstall_services
 
 - name: Remove octoprint and mjpg_streamer
-  include: uninstall.yml
+  include_tasks: uninstall.yml
   when: uninstall_services
