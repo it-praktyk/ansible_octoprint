@@ -1,23 +1,22 @@
 ---
 # tasks file for octoprint
 
-- name: Install dependencies.
+- name: Install octoprint dependencies.
   package:
-    name:
-      - python-pip
-      - python-dev
-      - python-setuptools
-      - python-virtualenv
-      - git
-      - libyaml-dev
-      - build-essential
+    name: "{{ octoprint_dependencies }}"
     state: present
+    update_cache: yes
 
-- name: Add octoprint user to tty and dialout groups.
+- name: Add octoprint user to required groups.
   user:
     name: "{{ octoprint_user }}"
     groups: tty, dialout, video
     append: true
+
+- name: Add sudo with no passwords rights for octoprint user
+  template:
+    src: sudo.j2
+    dest: "/etc/sudoers.d/{{ octoprint_user }}"
 
 - name: Create octoprint directory.
   file:

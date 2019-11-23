@@ -1,6 +1,15 @@
 ---
 # vars file for octoprint
 
+octoprint_dependencies:
+  - python-pip
+  - python-dev
+  - python-setuptools
+  - python-virtualenv
+  - git
+  - libyaml-dev
+  - build-essential
+
 _mjpg_streamer_dependencies:
   Debian:
     - libjpeg62-turbo-dev
@@ -11,3 +20,4 @@ _mjpg_streamer_dependencies:
     - cmake
 
 mjpg_streamer_dependencies: "{{ _mjpg_streamer_dependencies[ansible_distribution] + _mjpg_streamer_dependencies['common'] }}"
+

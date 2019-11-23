@@ -28,19 +28,6 @@
 
 - name: Remove dependencies.
   package:
-    name:
-      - build-essential
-      - cmake
-      - ffmpeg
-      - git
-      - imagemagick
-      - libjpeg62-turbo-dev
-      - libv4l-dev
-      - libyaml-dev
-      - python-dev
-      - python-pip
-      - python-setuptools
-      - python-virtualenv
-      - subversion
+    name: "{{ octoprint_dependencies + mjpg_streamer_dependencies }}"
     state: absent
   when: uninstall_dependencies
