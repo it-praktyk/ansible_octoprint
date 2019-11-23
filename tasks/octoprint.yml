@@ -56,13 +56,6 @@
   notify:
     - restart octoprint
 
-- name: Install init template.
-  template:
-    src: octoprint.init.j2
-    dest: /etc/init.d/octoprint
-    mode: +x
-    owner: "{{ octoprint_user }}"
-
 - name: Install default template.
   template:
     src: octoprint.default.j2
