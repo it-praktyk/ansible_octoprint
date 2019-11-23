@@ -24,7 +24,7 @@ Requirements
 ------------
 
 Raspberry Pi model 3 or 4 with SSH enabled. If installing on a fresh 'headless' Raspberry Pi
-server, add an empty file named 'ssh' to the boot directory of the SD card to 
+server, add an empty file named 'ssh' to the boot directory of the SD card to
 enable remote SSH access.
 
 Role Variables
@@ -34,7 +34,7 @@ Role Variables
 - `install_mjpg_streamer`: true
 - `uninstall_services` : false
 - `uninstall_dependencies` : false
-        
+
 - `host_ip`: 127.0.0.1
 - `octoprint_user`: pi (this is the linux user under which the service runs)
 - `install_dir`: "/home/{{ octoprint_user }}"
@@ -68,7 +68,7 @@ To install octoprint and mjpg_streamer for raspberry pi camera:
       hosts: ip_address_of_rpi
       become: true
       become_user: pi
-      
+
       vars:
         host_ip: 192.168.0.18
         webcam_type: raspi
@@ -85,7 +85,7 @@ To install just mjpg_streamer with a custom uvc camera configuration:
       hosts: ip_address_of_rpi
       become: true
       become_user: pi
-      
+
       vars:
         install_octoprint: false
         install_mjpg_streamer: true
@@ -105,7 +105,7 @@ To uninstall octoprint, mjpg_streamer and all package dependencies:
       hosts: ip_address_of_rpi
       become: true
       become_user: pi
-      
+
       vars:
         uninstall_services: true
         uninstall_dependencies: true
