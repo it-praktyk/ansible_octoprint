@@ -1,2 +1,13 @@
 ---
 # vars file for octoprint
+
+_mjpg_streamer_dependencies:
+  Debian:
+    - libjpeg62-turbo-dev
+  common:
+    - imagemagick
+    - ffmpeg
+    - libv4l-dev
+    - cmake
+
+mjpg_streamer_dependencies: "{{ _mjpg_streamer_dependencies[ansible_distribution] + _mjpg_streamer_dependencies['common'] }}"
