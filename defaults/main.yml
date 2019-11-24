@@ -20,7 +20,7 @@ install_dir: "/home/{{ octoprint_user }}"
 webcam_repo: "https://github.com/jacksonliam/mjpg-streamer.git"
 webcam_dir: "{{ install_dir}}/mjpg-streamer/mjpg-streamer-experimental"
 
-host_ip: 127.0.0.1
+host_ip: "{{ ansible_default_ipv4.address }}"
 octoprint_user: pi
 octoprint_port: 5000
 webcam_user: mjpg_streamer

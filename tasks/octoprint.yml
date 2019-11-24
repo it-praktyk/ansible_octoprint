@@ -22,6 +22,7 @@
   file:
     path: "{{ install_dir }}/Octoprint"
     state: directory
+    owner: "{{ octoprint_user }}"
 
 - name: Create user config directory.
   file:

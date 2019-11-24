@@ -12,6 +12,7 @@
     groups: video
     system: true
     append: true
+    create_home: false
 
 - name: Clone mjpg-streamer repo.
   git:
