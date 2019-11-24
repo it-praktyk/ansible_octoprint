@@ -17,6 +17,7 @@
   template:
     src: sudo.j2
     dest: "/etc/sudoers.d/{{ octoprint_user }}"
+    mode: 0640
 
 - name: Create octoprint directory.
   file:

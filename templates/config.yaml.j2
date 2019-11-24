@@ -9,12 +9,12 @@ plugins:
   discovery:
     upnpUuid:
   errortracking:
-    enabled: {%if allow_error_tracking == true %}true{% else %}false{% endif %}
+    enabled: {% if allow_error_tracking == true %}true{% else %}false{% endif %}
     unique_id:
   softwareupdate:
     _config_version: 6
   tracking:
-    enabled: {%if allow_usage_tracking == true %}true{% else %}false{% endif %}
+    enabled: {% if allow_usage_tracking == true %}true{% else %}false{% endif %}
     unique_id:
 printerProfiles:
   default: _default

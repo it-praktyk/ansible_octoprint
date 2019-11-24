@@ -1,1 +1,7 @@
-{{ octoprint_user }}        ALL=(ALL)       NOPASSWD: ALL
+Cmnd_Alias OCTOPRINT_CMDS = /bin/systemctl start octoprint, /bin/systemctl restart octoprint, /bin/systemctl stop octoprint
+
+{% if install_mjpg_streamer == true -%}
+Cmnd_Alias MJPEG_CMDS = /bin/systemctl start mjpg_streamer, /bin/systemctl restart mjpg_streamer, /bin/systemctl stop mjpg_streamer
+{% endif %}
+
+{{ octoprint_user }}        ALL = NOPASSWD: /sbin/shutdown, OCTOPRINT_CMDS{% if install_mjpg_streamer == true -%}, MJPEG_CMDS{% endif %}
