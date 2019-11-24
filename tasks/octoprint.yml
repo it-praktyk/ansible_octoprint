@@ -49,6 +49,12 @@
     virtualenv_python: python2
   when: octoprint_version != 'latest'
 
+- name: Check existence of config.yaml
+  stat:
+    path: "{{ install_dir }}/.octoprint/config.yaml"
+  changed_when: false
+  register: existing_config
+
 - name: Install config.yaml template.
   template:
     src: config.yaml.j2
@@ -56,6 +62,7 @@
     owner: "{{ octoprint_user }}"
   notify:
     - restart octoprint
+  when: not ( keep_octoprint_config | bool ) or not ( existing_config.stat.exists | bool )
 
 - name: Install default template.
   template:

@@ -17,6 +17,8 @@ octoprint_version: latest
 latest_octoprint_url: "https://get.octoprint.org/latest"
 install_dir: "/home/{{ octoprint_user }}"
 
+keep_octoprint_config: false
+
 webcam_repo: "https://github.com/jacksonliam/mjpg-streamer.git"
 webcam_dir: "{{ install_dir}}/mjpg-streamer/mjpg-streamer-experimental"
 

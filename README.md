@@ -3,19 +3,22 @@ Role Name
 
 semuadmin.octoprint
 
-Ansible role to deploy octoprint and/or mjpg_streamer on Raspberry Pi running stock Raspbian
-lite or full. Should also work on other Debian distributions though webcam support may
-depend on the specific hardware.
+Ansible role to deploy OctoPrint and/or mjpg_streamer on Debian 10 (Buster, e.g. Raspbian
+lite or full) or Ubuntu 18.04 (Bionic, e.g. ArmBian).
+Should also work on other versions of mentioned distributions distributions though webcam
+support may depend on the specific hardware.
 
 By default:
-- octoprint service will be available on: http://host_ip:5000.
+
+- the lastest version of OctoPrint will be installed
+- OctoPrint web interface will be available on: http://host_ip:5000.
 - mjpg_streamer service will be available on: http://host_ip:8080/?action=stream.
 
-(mjpg_streamer can be installed independently of octoprint if required)
+mjpg_streamer can be installed independently of OctoPrint if required.
 
 The user will be prompted to go through the Setup Wizard on accessing the service for the
 first time, but a pre-configured config.yaml template is included with standard configuration
-items already set up. These can be amended via the Octoprint admin console.
+items already set up. These can be amended via the OctoPrint admin console.
 
 Based on instructions here:
 https://community.octoprint.org/t/setting-up-octoprint-on-a-raspberry-pi-running-raspbian/2337
@@ -38,10 +41,15 @@ Role Variables
 - `allow_usage_tracking`: true
 - `allow_error_tracking`: true
 
-- `host_ip`: 127.0.0.1
+- `octoprint_version`: latest
+- `latest_octoprint_url`: https://get.octoprint.org/latest
+
+- `host_ip`: "{{ ansible_default_ipv4.address }}"
 - `octoprint_user`: pi (this is the linux user under which the service runs)
 - `install_dir`: "/home/{{ octoprint_user }}"
 - `octoprint_port`: 5000
+
+- `keep_octoprint_config`: false
 
 - `webcam_user`: mjpg_streamer
 - `webcam_dir`: "{{ install_dir}}/mjpg-streamer/mjpg-streamer-experimental"
@@ -65,11 +73,11 @@ Dependencies
 Example Playbook
 ----------------
 
-To install octoprint and mjpg_streamer for raspberry pi camera:
+To install OctoPrint and mjpg_streamer for raspberry pi camera:
 
 ```yaml
 
-    - name: Provision octoprint on raspbian
+    - name: Provision OctoPrint on Raspian
       hosts: ip_address_of_rpi
       become: true
       become_user: pi
