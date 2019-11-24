@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: octoprint
   author: semu
@@ -18,9 +19,9 @@ galaxy_info:
         - bionic
 
   galaxy_tags:
-  - octoprint
-  - raspbian
-  - raspberrypi
-  - mjpgstreamer
+    - octoprint
+    - raspbian
+    - raspberrypi
+    - mjpgstreamer
 
   dependencies:
