@@ -7,7 +7,6 @@
       - python-pip
       - python-dev
       - python-setuptools
-      - python-virtualenv
       - git
       - libyaml-dev
       - build-essential
@@ -30,6 +29,12 @@
     state: directory
     owner: "{{ octoprint_user }}"
 
+- name: Install virtualenv for python 2.7 via pip.
+  pip:
+    name:
+      - virtualenv
+    state: present
+    
 - name: Install octoprint via pip.
   pip:
     name: "{{ octoprint_url }}"
