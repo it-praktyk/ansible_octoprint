@@ -36,6 +36,14 @@
     dest: /etc/systemd/system/mjpg_streamer.service
     owner: "{{ webcam_user }}"
 
+- name: Change ownership of mjpg-streamer directory
+  file:
+    path: "{{ install_dir }}/mjpg-streamer"
+    state: directory
+    recurse: true
+    owner: "{{ octoprint_user }}"
+    group: "{{ octoprint_user }}"
+
 - name: Start webcam streaming service.
   systemd:
     name: mjpg_streamer
