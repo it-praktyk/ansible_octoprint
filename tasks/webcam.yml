@@ -36,7 +36,7 @@
     dest: /etc/systemd/system/mjpg_streamer.service
     owner: "{{ webcam_user }}"
 
-- name: Change ownership of mjpg-streamer directory
+- name: Change ownership of mjpg-streamer directory.
   file:
     path: "{{ install_dir }}/mjpg-streamer"
     state: directory
