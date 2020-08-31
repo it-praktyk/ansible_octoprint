@@ -1,12 +1,23 @@
 ---
 # tasks file for octoprint
 
-- name: Install dependencies.
+- name: Install python dependencies.
   package:
     name:
       - python-pip
       - python-dev
       - python-setuptools
+    state: present
+
+- name: Install virtualenv via pip.
+  pip:
+    name:
+      - virtualenv
+    state: present
+
+- name: Install other dependencies.
+  package:
+    name:
       - git
       - libyaml-dev
       - build-essential
@@ -22,18 +33,15 @@
   file:
     path: "{{ install_dir }}/Octoprint"
     state: directory
+    owner: "{{ octoprint_user }}"
+    group: "{{ octoprint_user }}"
 
 - name: Create user config directory.
   file:
     path: "{{ install_dir }}/.octoprint/"
     state: directory
     owner: "{{ octoprint_user }}"
-
-- name: Install virtualenv for python 2.7 via pip.
-  pip:
-    name:
-      - virtualenv
-    state: present
+    group: "{{ octoprint_user }}"
 
 - name: Install octoprint via pip.
   pip:
@@ -66,22 +74,6 @@
     src: octoprint.service.j2
     dest: /etc/systemd/system/octoprint.service
     owner: "{{ octoprint_user }}"
-
-- name: Change ownership of .octoprint directory.
-  file:
-    path: "{{ install_dir }}/.octoprint"
-    state: directory
-    recurse: true
-    owner: "{{ octoprint_user }}"
-    group: "{{ octoprint_user }}"
-
-- name: Change ownership of Octoprint directory.
-  file:
-    path: "{{ install_dir }}/Octoprint"
-    state: directory
-    recurse: true
-    owner: "{{ octoprint_user }}"
-    group: "{{ octoprint_user }}"
 
 - name: Start octoprint service.
   systemd:
