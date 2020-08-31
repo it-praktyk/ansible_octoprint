@@ -74,7 +74,7 @@ To install octoprint and mjpg_streamer for raspberry pi camera:
 ```yaml
 
     - name: Provision octoprint on raspbian
-      hosts: ip_address_of_rpi
+      hosts: your_octoprint_hostname
       remote_user: pi
       become: true
       
@@ -104,7 +104,7 @@ To install just mjpg_streamer with a custom uvc camera configuration:
 ```yaml
 
     - name: Provision octoprint on raspbian
-      hosts: ip_address_of_rpi
+      hosts: your_octoprint_hostname
       remote_user: pi
       become: true
       
@@ -124,7 +124,7 @@ To uninstall octoprint, mjpg_streamer and all package dependencies:
 ```yaml
 
     - name: Uninstall octoprint on raspbian
-      hosts: ip_address_of_rpi
+      hosts: your_octoprint_hostname
       remote_user: pi
       become: true
       
