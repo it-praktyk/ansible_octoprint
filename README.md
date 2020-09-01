@@ -3,9 +3,9 @@ Role Name
 
 semuadmin.octoprint
 
-Ansible role to deploy octoprint and/or mjpg_streamer on Raspberry Pi running stock Raspberry
-Pi OS 32-bit Lite or Full (Lite is recommended). Should also work on other Debian distributions
-though webcam support may depend on the specific hardware.
+Ansible role to deploy octoprint and/or mjpg_streamer as systemd services on Raspberry Pi
+running stock Raspberry Pi OS 32-bit Lite or Full (Lite is recommended). Should also work
+on other Debian distributions though webcam support may depend on the specific hardware.
 
 By default:
 - octoprint service will be available on: http://host_ip:5000.
@@ -21,16 +21,19 @@ Based on instructions here:
 https://community.octoprint.org/t/setting-up-octoprint-on-a-raspberry-pi-running-raspbian/2337
 
 Support for Python3 (>= 3.7) has been added since Octoprint 1.4, but *note that* many 
-Octopi plugins still only work with Python2. The easiest way to install under Python3 is
-to add a directive in your Ansible hosts file to point to the Python3 executable on your
-target host. For Raspberry Pi OS this is typically `/usr/bin/python3`.
+Octoprint plugins still only work with Python2. The easiest way to install under Python3 is
+to add a directive in your Ansible inventory (hosts) file to point to the Python3 executable
+on your target host(s). For Raspberry Pi OS this is normally `/usr/bin/python3`.
+
+Constructive feedback very welcome.
 
 Requirements
 ------------
 
 Raspberry Pi model 3 or 4 with SSH enabled. If installing on a fresh 'headless' Raspberry
 Pi server (e.g. Raspberry Pi OS Lite), add an empty file named 'ssh' to the boot directory 
-of the SD card to enable remote SSH access.
+of the SD card to enable remote SSH access. You may also want to set up [SSH key-based
+authentication](https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md).
 
 Role Variables
 --------------
@@ -69,11 +72,11 @@ To install under Python3:
 Example Playbook
 ----------------
 
-To install octoprint and mjpg_streamer for raspberry pi camera:
+To install octoprint and mjpg_streamer with raspberry pi camera:
 
 ```yaml
 
-    - name: Provision octoprint on raspbian
+    - name: Provision octoprint and mjpg_streamer on raspberry pi OS
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
@@ -88,10 +91,9 @@ To install octoprint and mjpg_streamer for raspberry pi camera:
 
 By default, Ansible will use the Python2 interpreter on Raspberry Pi OS.
 To install under Python3, use the same playbook as above but add the
-following entry to your ansible hosts file:
+following entry to the octoprint group in your ansible hosts file, e.g:
 
-```yaml
-
+```
 [your_octoprint_hostname:vars]
 ansible_python_interpreter=/usr/bin/python3
 ```
@@ -103,7 +105,7 @@ To install just mjpg_streamer with a custom uvc camera configuration:
 
 ```yaml
 
-    - name: Provision octoprint on raspbian
+    - name: Provision mjpg_streamer on raspberry pi os
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
@@ -123,7 +125,7 @@ To uninstall octoprint, mjpg_streamer and all package dependencies:
 
 ```yaml
 
-    - name: Uninstall octoprint on raspbian
+    - name: Uninstall octoprint on raspberry pi os
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
