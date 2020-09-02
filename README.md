@@ -3,15 +3,15 @@ Role Name
 
 semuadmin.octoprint
 
-Ansible role to deploy octoprint and/or mjpg_streamer as systemd services on Raspberry Pi
+Ansible role to deploy Octoprint and/or mjpg_streamer as systemd services on Raspberry Pi
 running stock Raspberry Pi OS 32-bit Lite or Full (Lite is recommended). Should also work
 on other Debian distributions though webcam support may depend on the specific hardware.
 
 By default:
-- octoprint service will be available on: http://host_ip:5000.
+- Octoprint service will be available on: http://host_ip:5000.
 - mjpg_streamer service will be available on: http://host_ip:8080/?action=stream.
 
-(mjpg_streamer can be installed independently of octoprint if required)
+(mjpg_streamer can be installed independently of Octoprint if required)
 
 The user will be prompted to go through the Setup Wizard on accessing the service for the
 first time, but a pre-configured config.yaml template is included with standard configuration
@@ -21,9 +21,10 @@ Based on instructions here:
 https://community.octoprint.org/t/setting-up-octoprint-on-a-raspberry-pi-running-raspbian/2337
 
 Support for Python3 (>= 3.7) has been added since Octoprint 1.4, but *note that* many 
-Octoprint plugins still only work with Python2. The easiest way to install under Python3 is
-to add a directive in your Ansible inventory (hosts) file to point to the Python3 executable
-on your target host(s). For Raspberry Pi OS this is normally `/usr/bin/python3`.
+Octoprint plugins still only work with Python2 (or require additional installation procedures).
+The easiest way to install under Python3 is to add a directive in your Ansible inventory
+(hosts) file to point to the Python3 executable on your target host(s). For Raspberry Pi
+OS this is normally `/usr/bin/python3`.
 
 Constructive feedback very welcome.
 
@@ -72,11 +73,11 @@ To install under Python3:
 Example Playbook
 ----------------
 
-To install octoprint and mjpg_streamer with raspberry pi camera:
+To install Octoprint and mjpg_streamer with Raspberry Pi camera:
 
 ```yaml
 
-    - name: Provision octoprint and mjpg_streamer on raspberry pi OS
+    - name: Provision Octoprint and mjpg_streamer on Raspberry Pi OS
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
@@ -105,7 +106,7 @@ To install just mjpg_streamer with a custom uvc camera configuration:
 
 ```yaml
 
-    - name: Provision mjpg_streamer on raspberry pi os
+    - name: Provision mjpg_streamer on Raspberry Pi OS
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
@@ -121,11 +122,11 @@ To install just mjpg_streamer with a custom uvc camera configuration:
       - semuadmin.octoprint
 ```
 
-To uninstall octoprint, mjpg_streamer and all package dependencies:
+To uninstall Octoprint, mjpg_streamer and all package dependencies:
 
 ```yaml
 
-    - name: Uninstall octoprint on raspberry pi os
+    - name: Uninstall Octoprint on Raspberry Pi OS
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true

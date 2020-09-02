@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: octoprint
   author: semu
-  description: Octoprint on Raspbian
+  description: Octoprint & mjpg_streamer on Raspberry Pi OS
   company: SEMU Consulting
 
   license: BSD
@@ -16,7 +16,10 @@ galaxy_info:
 
   galaxy_tags:
   - octoprint
+  - octopi
   - raspbian
+  - raspberry
+  - rpi
   - raspberrypi
   - mjpgstreamer
 
