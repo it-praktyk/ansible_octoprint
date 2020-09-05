@@ -1,7 +1,7 @@
 ---
 # tasks file for octoprint webcam
 
-- name: Install dependencies.
+- name: Install mjpg_streamer dependencies.
   package:
     name:
       - subversion
