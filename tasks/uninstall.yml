@@ -37,10 +37,6 @@
       - libjpeg62-turbo-dev
       - libv4l-dev
       - libyaml-dev
-      - python-dev
-      - python-pip
-      - python-setuptools
-      - python-virtualenv
       - subversion
     state: absent
   when: uninstall_dependencies
