@@ -43,8 +43,6 @@ Role Variables
 - `install_mjpg_streamer`: true
 - `uninstall_services` : false
 - `uninstall_dependencies` : false
-        
-- `host_ip`: 127.0.0.1
 - `octoprint_user`: pi (this is the linux user under which the service runs)
 - `install_dir`: "/home/{{ octoprint_user }}"
 - `octoprint_port`: 5000
@@ -83,7 +81,6 @@ To install Octoprint and mjpg_streamer with Raspberry Pi camera:
       become: true
       
       vars:
-        host_ip: 192.168.0.18
         webcam_type: raspi
 
       roles:
@@ -114,7 +111,6 @@ To install just mjpg_streamer with a custom uvc camera configuration:
       vars:
         install_octoprint: false
         install_mjpg_streamer: true
-        host_ip: 192.168.0.18
         webcam_type: custom
         custom_input: "input_uvc.so -d /dev/video12 -r 1920x1080 -f 15 -q 50"
 

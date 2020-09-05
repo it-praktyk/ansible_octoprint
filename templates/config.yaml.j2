@@ -57,6 +57,6 @@ system:
     name: Stop video stream
 webcam:
   ffmpeg: /usr/bin/ffmpeg
-  snapshot: http://127.0.0.1:8080/?action=snapshot
-  stream: http://{{ host_ip }}:{{ webcam_port }}/?action=stream
+  snapshot: http://localhost:{{ webcam_port }}/?action=snapshot
+  stream: http://{{ ansible_default_ipv4.address }}:{{ webcam_port }}/?action=stream
 {% endif %}
