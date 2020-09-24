@@ -143,4 +143,4 @@ BSD
 Author Information
 ------------------
 
-semuadmin@noreply.user.github.com
+semuadmin@semuconsulting.com
