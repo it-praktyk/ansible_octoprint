@@ -62,7 +62,7 @@ for available custom options.
 Dependencies
 ------------
 
-To install under Python2:
+To install under Python2 (**strongly** deprecated):
 - Python >=2.7.9<3
 
 To install under Python3:

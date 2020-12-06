@@ -13,6 +13,12 @@ galaxy_info:
       versions:
         - buster
         - stretch
+    - name: Ubuntu
+      versions:
+        - bionic
+        - disco
+        - eoan
+        - focal
 
   galaxy_tags:
   - octoprint

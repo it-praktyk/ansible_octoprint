@@ -5,12 +5,25 @@
   package:
     name:
       - subversion
-      - libjpeg62-turbo-dev
       - imagemagick
       - ffmpeg
       - libv4l-dev
       - cmake
     state: present
+
+- name: Install libjpeg.
+  package:
+    name:
+      - libjpeg62-turbo-dev
+    state: present
+  when: ansible_distribution != "Ubuntu" or ansible_distribution_major_version != "20"
+
+- name: Install libjpeg for Ubuntu 20.
+  package:
+    name:
+      - libjpeg-turbo8-dev
+    state: present
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "20"
 
 - name: Add webcam user to video group.
   user:
