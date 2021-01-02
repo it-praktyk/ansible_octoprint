@@ -55,7 +55,8 @@
     src: config.yaml.j2
     dest: "{{ install_dir }}/.octoprint/config.yaml"
     owner: "{{ octoprint_user }}"
-
+  when: reset_config
+    
 - name: Install init template.
   template:
     src: octoprint.init.j2

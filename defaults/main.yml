@@ -5,6 +5,7 @@ install_octoprint: true
 install_mjpg_streamer: true
 uninstall_services: false
 uninstall_dependencies: false
+reset_config: true
 
 octoprint_url: "https://get.octoprint.org/latest"
 octoprint_repo: "https://github.com/foosel/OctoPrint/raw/master"

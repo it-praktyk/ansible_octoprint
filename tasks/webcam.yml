@@ -1,6 +1,12 @@
 ---
 # tasks file for octoprint webcam
 
+- name: Stop webcam streaming service if it's running.
+  systemd:
+    name: mjpg_streamer
+    enabled: true
+    state: stopped
+
 - name: Install mjpg_streamer dependencies.
   package:
     name:

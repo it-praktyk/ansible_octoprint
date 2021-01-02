@@ -45,6 +45,7 @@ Role Variables
 - `uninstall_dependencies` : false
 - `octoprint_user`: pi (this is the linux user under which the service runs)
 - `install_dir`: "/home/{{ octoprint_user }}"
+- `reset_config`: true (set to false to retain existing config)
 - `octoprint_port`: 5000
 
 - `webcam_user`: mjpg_streamer
@@ -71,6 +72,19 @@ To install under Python3:
 Example Playbook
 ----------------
 
+At time of writing, Ansible will use the Python2 interpreter on Raspberry Pi OS by default.
+To install under Python3, add the following entry to the octoprint group in your
+ansible hosts file, e.g:
+
+```
+[your_octoprint_hostname:vars]
+ansible_python_interpreter=/usr/bin/python3
+```
+
+See https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html 
+for more details.
+
+
 To install Octoprint and mjpg_streamer with Raspberry Pi camera:
 
 ```yaml
@@ -87,17 +101,24 @@ To install Octoprint and mjpg_streamer with Raspberry Pi camera:
       - semuadmin.octoprint
 ```
 
-By default, Ansible will use the Python2 interpreter on Raspberry Pi OS.
-To install under Python3, use the same playbook as above but add the
-following entry to the octoprint group in your ansible hosts file, e.g:
+To update Octoprint, keeping existing configuration and access credentials:
 
-```
-[your_octoprint_hostname:vars]
-ansible_python_interpreter=/usr/bin/python3
-```
+```yaml
 
-See https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html 
-for more details.
+    - name: Update Octoprint and mjpg_streamer on Raspberry Pi OS
+      hosts: your_octoprint_hostname
+      remote_user: pi
+      become: true
+      
+      vars:
+        install_octoprint: true
+        install_mjpg_streamer: false
+        reset_config: false
+        webcam_type: raspi
+
+      roles:
+      - semuadmin.octoprint
+```
 
 To install just mjpg_streamer with a custom uvc camera configuration:
 
