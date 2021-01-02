@@ -28,6 +28,15 @@ OS this is normally `/usr/bin/python3`.
 
 Constructive feedback very welcome.
 
+Current Status
+--------------
+
+![Release](https://img.shields.io/github/v/release/semuconsulting/ansible_octoprint?include_prereleases)
+![Release Date](https://img.shields.io/github/release-date-pre/semuconsulting/ansible_octoprint)
+![Last Commit](https://img.shields.io/github/last-commit/semuconsulting/ansible_octoprint)
+![Contributors](https://img.shields.io/github/contributors/semuconsulting/ansible_octoprint.svg)
+![Open Issues](https://img.shields.io/github/issues-raw/semuconsulting/ansible_octoprint)
+
 Requirements
 ------------
 
