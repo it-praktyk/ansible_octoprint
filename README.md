@@ -54,7 +54,7 @@ Role Variables
 - `uninstall_dependencies` : false
 - `octoprint_user`: pi (this is the linux user under which the service runs)
 - `install_dir`: "/home/{{ octoprint_user }}"
-- `reset_config`: true (set to false to retain existing config)
+- `reset_config`: true (set to false to retain existing config.yaml)
 - `octoprint_port`: 5000
 
 - `webcam_user`: mjpg_streamer
@@ -114,7 +114,7 @@ To update Octoprint, keeping existing configuration and access credentials:
 
 ```yaml
 
-    - name: Update Octoprint and mjpg_streamer on Raspberry Pi OS
+    - name: Update Octoprint with existing configuration
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
@@ -123,7 +123,6 @@ To update Octoprint, keeping existing configuration and access credentials:
         install_octoprint: true
         install_mjpg_streamer: false
         reset_config: false
-        webcam_type: raspi
 
       roles:
       - semuadmin.octoprint
