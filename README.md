@@ -164,6 +164,21 @@ To uninstall Octoprint, mjpg_streamer and all package dependencies:
       - semuadmin.octoprint
 ```
 
+Troubleshooting
+---------------
+
+If you get an `[SSL: CERTIFICATE_VERIFY_FAILED]` error when attempting to install this
+role on MacOS, this is probably due to changes in the way SSL certificates are packaged 
+with Python version >=3.6. Try the following:
+1. Ensure that the certifi package is at the latest version: `python3 -m pip install --upgrade certifi`.
+2. Update the installed certificates using the following command 
+(where * is the minor version of Python installed e.g. 3.9):
+`/Applications/Python\ 3.*/Install\ Certificates.command`.
+3. (*last resort*) Use the -c flag to override certificate validation: `ansible-galaxy install semuadmin.octoprint -c`.
+
+See https://www.python.org/downloads/release/python-360/ for further details (particularly
+bullet point 6 under 'Notes on this release').
+
 License
 -------
 
