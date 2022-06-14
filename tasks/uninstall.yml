@@ -44,11 +44,11 @@
     name:
       - libjpeg62-turbo-dev
     state: absent
-  when: (ansible_distribution != "Ubuntu") or (ansible_distribution == "Ubuntu" and ansible_distribution_major_version < "20")
+  when: (uninstall_dependencies and ansible_distribution != "Ubuntu") or (uninstall_dependencies and ansible_distribution == "Ubuntu" and ansible_distribution_major_version < "20")
   
 - name: Remove libjpeg Ubuntu
   package:
     name:
       - libjpeg-turbo8-dev
     state: absent
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "20"
+  when: uninstall_dependencies and ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "20"
