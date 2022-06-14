@@ -44,6 +44,8 @@
     repo: "{{ webcam_repo }}"
     dest: "{{ install_dir }}/mjpg-streamer"
     version: master
+  become_user: "{{ octoprint_user }}"
+  become: yes
 
 - name: Build mjpg-streamer from source.
   make:
