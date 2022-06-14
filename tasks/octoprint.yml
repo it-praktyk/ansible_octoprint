@@ -76,17 +76,9 @@
     dest: /etc/systemd/system/octoprint.service
     owner: "{{ octoprint_user }}"
 
-- name: Change ownership of .octoprint directory
+- name: Change ownership of install directory
   file:
-    path: "{{ install_dir }}/.octoprint"
-    state: directory
-    recurse: true
-    owner: "{{ octoprint_user }}"
-    group: "{{ octoprint_user }}"
-
-- name: Change ownership of Octoprint directory
-  file:
-    path: "{{ install_dir }}/Octoprint"
+    path: "{{ install_dir }}"
     state: directory
     recurse: true
     owner: "{{ octoprint_user }}"
