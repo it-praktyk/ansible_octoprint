@@ -32,11 +32,21 @@
       - build-essential
       - cmake
       - ffmpeg
-      - git
       - imagemagick
-      - libjpeg62-turbo-dev
       - libv4l-dev
       - libyaml-dev
       - subversion
     state: absent
   when: uninstall_dependencies
+  
+- name: Remove libjpeg
+  package:
+    name:
+      - libjpeg62-turbo-dev
+  when: (ansible_distribution != "Ubuntu") or (ansible_distribution == "Ubuntu" and ansible_distribution_major_version < "20")
+  
+- name: Remove libjpeg Ubuntu
+  package:
+    name:
+      - libjpeg-turbo8-dev
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "20"
