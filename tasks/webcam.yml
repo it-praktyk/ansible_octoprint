@@ -23,14 +23,14 @@
     name:
       - libjpeg62-turbo-dev
     state: present
-  when: ansible_distribution != "Ubuntu" or ansible_distribution_major_version != "20"
+  when: (ansible_distribution != "Ubuntu") or (ansible_distribution == "Ubuntu" and ansible_distribution_major_version < "20")
 
 - name: Install libjpeg for Ubuntu 20.
   package:
     name:
       - libjpeg-turbo8-dev
     state: present
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "20"
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= "20"
 
 - name: Add webcam user to video group.
   user:
@@ -44,6 +44,8 @@
     repo: "{{ webcam_repo }}"
     dest: "{{ install_dir }}/mjpg-streamer"
     version: master
+  become_user: "{{ octoprint_user }}"
+  become: yes
 
 - name: Build mjpg-streamer from source.
   make:
