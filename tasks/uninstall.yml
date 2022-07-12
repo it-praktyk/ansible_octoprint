@@ -12,6 +12,25 @@
   register: disable_service
   ignore_errors: true
 
+- name: Remove sudoer permissions
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    line: "{{ item }}"
+    validate: /usr/sbin/visudo -cf %s
+  loop:
+    - "{{ webcam_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl start mjpg_streamer"
+    - "{{ webcam_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop mjpg_streamer"
+    - "{{ webcam_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart mjpg_streamer"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart octoprint"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl start octoprint"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop octoprint"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart mjpg_streamer"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl start mjpg_streamer"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop mjpg_streamer"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/sbin/shutdown -r now"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/sbin/shutdown -h now"
+
 - name: Remove files and directories
   file:
     path: "{{ item }}"
