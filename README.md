@@ -65,6 +65,7 @@ Role Variables
 - `webcam_height` : 480
 - `webcam_fps`: 10 (frames per second)
 - `custom_input` : "input_uvc.so" (input parameters to be used with 'custom' webcam type)
+- `webcam_device`: (Optional, not defined by default) Used to specify a device in usb mode, for buggy webcams that present multiple video devices
 
 See https://community.octoprint.org/t/available-mjpg-streamer-configuration-options/1106
 for available custom options.
