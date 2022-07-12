@@ -42,14 +42,14 @@
 - name: Clone mjpg-streamer repo.
   git:
     repo: "{{ webcam_repo }}"
-    dest: "{{ install_dir }}/mjpg-streamer"
+    dest: "/home/{{ webcam_user }}/mjpg-streamer"
     version: master
-  become_user: "{{ octoprint_user }}"
+  become_user: "{{ webcam_user }}"
   become: yes
 
 - name: Build mjpg-streamer from source.
   make:
-    chdir: "{{ install_dir }}/mjpg-streamer/mjpg-streamer-experimental"
+    chdir: "{{ webcam_dir }}"
     target: all
 
 - name: Install systemd service template.
@@ -60,11 +60,22 @@
 
 - name: Change ownership of mjpg-streamer directory.
   file:
-    path: "{{ install_dir }}/mjpg-streamer"
+    path: "/home/{{ webcam_user }}/mjpg-streamer"
     state: directory
     recurse: true
-    owner: "{{ octoprint_user }}"
-    group: "{{ octoprint_user }}"
+    owner: "{{ webcam_user }}"
+    group: "{{ webcam_user }}"
+
+- name: Add lines to sudoers
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    line: "{{ item }}"
+    validate: /usr/sbin/visudo -cf %s
+  loop:
+    - "{{ webcam_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl start mjpg_streamer"
+    - "{{ webcam_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop mjpg_streamer"
+    - "{{ webcam_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart mjpg_streamer"
 
 - name: Start webcam streaming service.
   systemd:
