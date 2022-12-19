@@ -6,19 +6,24 @@ galaxy_info:
 
   license: BSD
 
-  min_ansible_version: 2.5
+  min_ansible_version: 6
 
   platforms:
     - name: Debian
       versions:
+        - bullseye
         - buster
         - stretch
+        - jessy
+        - wheezy
     - name: Ubuntu
       versions:
         - bionic
-        - disco
-        - eoan
         - focal
+        - groovy
+        - hirsute
+        - impish
+        - jammy
 
   galaxy_tags:
   - octoprint
