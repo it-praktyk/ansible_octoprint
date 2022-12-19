@@ -56,7 +56,7 @@
     dest: "{{ install_dir }}/.octoprint/config.yaml"
     owner: "{{ octoprint_user }}"
   when: reset_config
-    
+
 - name: Install init template.
   template:
     src: octoprint.init.j2
@@ -76,17 +76,25 @@
     dest: /etc/systemd/system/octoprint.service
     owner: "{{ octoprint_user }}"
 
-- name: Change ownership of .octoprint directory
-  file:
-    path: "{{ install_dir }}/.octoprint"
-    state: directory
-    recurse: true
-    owner: "{{ octoprint_user }}"
-    group: "{{ octoprint_user }}"
+- name: Add lines to sudoers
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    line: "{{ item }}"
+    validate: /usr/sbin/visudo -cf %s
+  loop:
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart octoprint"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl start octoprint"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop octoprint"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart mjpg_streamer"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl start mjpg_streamer"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop mjpg_streamer"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/sbin/shutdown -r now"
+    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/sbin/shutdown -h now"
 
-- name: Change ownership of Octoprint directory
+- name: Change ownership of install directory
   file:
-    path: "{{ install_dir }}/Octoprint"
+    path: "{{ install_dir }}"
     state: directory
     recurse: true
     owner: "{{ octoprint_user }}"
