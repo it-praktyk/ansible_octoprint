@@ -20,12 +20,6 @@ items already set up. These can be amended via the Octoprint admin console.
 Based on instructions here:
 https://community.octoprint.org/t/setting-up-octoprint-on-a-raspberry-pi-running-raspbian/2337
 
-Support for Python3 (>= 3.7) has been added since Octoprint 1.4, but *note that* a few 
-Octoprint plugins still only work with Python2 (or require additional installation procedures).
-The easiest way to install under Python3 is to add a directive in your Ansible inventory
-(hosts) file to point to the Python3 executable on your target host(s). For Raspberry Pi
-OS this is normally `/usr/bin/python3`.
-
 Constructive feedback very welcome.
 
 Current Status
