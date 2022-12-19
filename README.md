@@ -76,7 +76,7 @@ To install under Python3:
 Example Playbook
 ----------------
 
-At time of writing, Ansible will use the Python2 interpreter on Raspberry Pi OS by default.
+Older versions of Ansible will use the Python2 interpreter on Raspberry Pi OS by default.
 To install under Python3, add the following entry to the octoprint group in your
 ansible hosts file, e.g:
 
