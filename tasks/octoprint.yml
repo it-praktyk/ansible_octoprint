@@ -10,7 +10,7 @@
 - name: Add octoprint user to required groups.
   user:
     name: "{{ octoprint_user }}"
-    groups: tty, dialout, video
+    groups: tty, dialout
     append: true
 
 - name: Add sudo with no passwords rights for octoprint user
@@ -37,7 +37,7 @@
     state: present
     virtualenv: "{{ install_dir }}/Octoprint/venv"
     virtualenv_command: virtualenv
-    virtualenv_python: python2
+    virtualenv_python: python3
   when: octoprint_version == 'latest'
 
 - name: Install octoprint via pip - the defined version.
@@ -47,7 +47,7 @@
     state: present
     virtualenv: "{{ install_dir }}/Octoprint/venv"
     virtualenv_command: virtualenv
-    virtualenv_python: python2
+    virtualenv_python: python3
   when: octoprint_version != 'latest'
 
 - name: Check existence of config.yaml

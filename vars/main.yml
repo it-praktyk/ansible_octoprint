@@ -2,13 +2,13 @@
 # vars file for octoprint
 
 octoprint_dependencies:
-  - python-pip
-  - python-dev
-  - python-setuptools
-  - python-virtualenv
+  - build-essential
   - git
   - libyaml-dev
-  - build-essential
+  - python3-pip
+  - python3-setuptools
+  - python3-virtualenv
+  - python3-wheel
 
 _mjpg_streamer_dependencies:
   Debian:
