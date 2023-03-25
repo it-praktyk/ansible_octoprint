@@ -33,4 +33,4 @@ galaxy_info:
   - raspberrypi
   - mjpgstreamer
 
-  dependencies:
+  dependencies: []

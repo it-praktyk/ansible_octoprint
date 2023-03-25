@@ -7,9 +7,11 @@ uninstall_services: false
 uninstall_dependencies: false
 reset_config: true
 
-octoprint_url: "https://get.octoprint.org/latest"
-octoprint_repo: "https://github.com/foosel/OctoPrint/raw/master"
+octoprint_version: latest
+latest_octoprint_url: "https://get.octoprint.org/latest"
+
 webcam_repo: "https://github.com/jacksonliam/mjpg-streamer.git"
+
 install_dir: "/home/{{ octoprint_user }}"
 webcam_dir: "{{ install_dir}}/mjpg-streamer/mjpg-streamer-experimental"
 

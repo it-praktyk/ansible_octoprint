@@ -3,19 +3,22 @@ Role Name
 
 semuadmin.octoprint
 
-Ansible role to deploy Octoprint and/or mjpg_streamer as systemd services on Raspberry Pi
+Ansible role to deploy OctoPrint and/or mjpg_streamer as systemd services on Raspberry Pi
 running stock Raspberry Pi OS 32-bit Lite or Full (Lite is recommended). Should also work
 on other Debian distributions though webcam support may depend on the specific hardware.
 
 By default:
-- Octoprint service will be available on: http://host_ip:5000.
+
+- OctoPrint service will be available on: http://host_ip:5000.
+- OctoPrint will be installed in the latest stable version. You can select/pin different version
+  by setting the `octoprint_version`.
 - mjpg_streamer service will be available on: http://host_ip:8080/?action=stream.
 
-(mjpg_streamer can be installed independently of Octoprint if required)
+(mjpg_streamer can be installed independently of OctoPrint if required)
 
 The user will be prompted to go through the Setup Wizard on accessing the service for the
 first time, but a pre-configured config.yaml template is included with standard configuration
-items already set up. These can be amended via the Octoprint admin console.
+items already set up. These can be amended via the OctoPrint admin console.
 
 Based on instructions here:
 https://community.octoprint.org/t/setting-up-octoprint-on-a-raspberry-pi-running-raspbian/2337
@@ -35,7 +38,7 @@ Requirements
 ------------
 
 Raspberry Pi model 3 or 4 with SSH enabled. If installing on a fresh 'headless' Raspberry
-Pi server (e.g. Raspberry Pi OS Lite), add an empty file named 'ssh' to the boot directory 
+Pi server (e.g. Raspberry Pi OS Lite), add an empty file named 'ssh' to the boot directory
 of the SD card to enable remote SSH access. You may also want to set up [SSH key-based
 authentication](https://www.raspberrypi.org/documentation/remote-access/ssh/passwordless.md).
 
@@ -47,6 +50,7 @@ Role Variables
 - `uninstall_services` : false
 - `uninstall_dependencies` : false
 - `octoprint_user`: pi (this is the linux user under which the service runs)
+- `octoprint_version`: latest
 - `install_dir`: "/home/{{ octoprint_user }}"
 - `reset_config`: true (set to false to retain existing config.yaml)
 - `octoprint_port`: 5000
@@ -68,9 +72,11 @@ Dependencies
 ------------
 
 To install under Python2 (**strongly** deprecated):
+
 - Python >=2.7.9<3
 
 To install under Python3:
+
 - Python >=3.7
 
 Example Playbook
@@ -85,19 +91,18 @@ ansible hosts file, e.g:
 ansible_python_interpreter=/usr/bin/python3
 ```
 
-See https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html 
+See https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
 for more details.
 
-
-To install Octoprint and mjpg_streamer with Raspberry Pi camera:
+To install OctoPrint in the latest version and mjpg_streamer with Raspberry Pi camera:
 
 ```yaml
 
-    - name: Provision Octoprint and mjpg_streamer on Raspberry Pi OS
+    - name: Provision OctoPrint and mjpg_streamer on Raspberry Pi OS
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
-      
+
       vars:
         webcam_type: raspi
 
@@ -105,15 +110,31 @@ To install Octoprint and mjpg_streamer with Raspberry Pi camera:
       - semuadmin.octoprint
 ```
 
-To update Octoprint, keeping existing configuration and access credentials:
+To install OctoPrint with pinned version:
 
 ```yaml
 
-    - name: Update Octoprint with existing configuration
+    - name: Provision OctoPrint
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
-      
+
+      vars:
+        octoprint_version: "1.8.7"
+
+      roles:
+      - semuadmin.octoprint
+```
+
+To update OctoPrint, keeping existing configuration and access credentials:
+
+```yaml
+
+    - name: Update OctoPrint with existing configuration
+      hosts: your_octoprint_hostname
+      remote_user: pi
+      become: true
+
       vars:
         install_octoprint: true
         install_mjpg_streamer: false
@@ -131,7 +152,7 @@ To install just mjpg_streamer with a custom uvc camera configuration:
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
-      
+
       vars:
         install_octoprint: false
         install_mjpg_streamer: true
@@ -142,7 +163,7 @@ To install just mjpg_streamer with a custom uvc camera configuration:
       - semuadmin.octoprint
 ```
 
-To uninstall Octoprint, mjpg_streamer and all package dependencies:
+To uninstall OctoPrint, mjpg_streamer and all package dependencies:
 
 ```yaml
 
@@ -150,7 +171,7 @@ To uninstall Octoprint, mjpg_streamer and all package dependencies:
       hosts: your_octoprint_hostname
       remote_user: pi
       become: true
-      
+
       vars:
         uninstall_services: true
         uninstall_dependencies: true
@@ -163,8 +184,9 @@ Troubleshooting
 ---------------
 
 If you get an `[SSL: CERTIFICATE_VERIFY_FAILED]` error when attempting to install this
-role on MacOS, this is probably due to changes in the way SSL certificates are packaged 
+role on MacOS, this is probably due to changes in the way SSL certificates are packaged
 with Python version >=3.6. Try the following:
+
 1. Ensure that the certifi package is at the latest version: `python3 -m pip install --upgrade certifi`.
 2. Update the installed certificates using the following command 
 (where * is the minor version of Python installed e.g. 3.9):
