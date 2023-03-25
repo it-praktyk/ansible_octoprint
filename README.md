@@ -71,28 +71,15 @@ for available custom options.
 Dependencies
 ------------
 
-To install under Python2 (**strongly** deprecated):
-
-- Python >=2.7.9<3
-
-To install under Python3:
-
 - Python >=3.7
 
 Example Playbook
 ----------------
 
-Older versions of Ansible will use the Python2 interpreter on Raspberry Pi OS by default.
-To install under Python3, add the following entry to the octoprint group in your
-ansible hosts file, e.g:
-
 ```
 [your_octoprint_hostname:vars]
 ansible_python_interpreter=/usr/bin/python3
 ```
-
-See https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
-for more details.
 
 To install OctoPrint in the latest version and mjpg_streamer with Raspberry Pi camera:
 
