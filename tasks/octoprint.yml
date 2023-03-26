@@ -2,7 +2,7 @@
 # tasks file for octoprint
 
 - name: Install Python dependencies.
-  package:
+  ansible.builtin.package:
     name:
       - python3-pip
       - python3-dev
@@ -11,13 +11,13 @@
     update_cache: true
 
 - name: Install virtualenv via pip.
-  pip:
+  ansible.builtin.pip:
     name:
       - virtualenv
     state: present
 
 - name: Install other dependencies.
-  package:
+  ansible.builtin.package:
     name:
       - git
       - libyaml-dev
@@ -25,27 +25,27 @@
     state: present
 
 - name: Add octoprint user to tty and dialout groups.
-  user:
+  ansible.builtin.user:
     name: "{{ octoprint_user }}"
     groups: tty, dialout
     append: true
 
 - name: Create octoprint directory.
-  file:
+  ansible.builtin.file:
     path: "{{ install_dir }}/Octoprint"
     state: directory
     owner: "{{ octoprint_user }}"
     group: "{{ octoprint_user }}"
 
 - name: Create user config directory.
-  file:
+  ansible.builtin.file:
     path: "{{ install_dir }}/.octoprint/"
     state: directory
     owner: "{{ octoprint_user }}"
     group: "{{ octoprint_user }}"
 
 - name: Install OctoPrint via pip - the latest verstion.
-  pip:
+  ansible.builtin.pip:
     name: "{{ latest_octoprint_url }}"
     state: present
     virtualenv: "{{ install_dir }}/Octoprint/venv"
@@ -54,7 +54,7 @@
   when: octoprint_version == 'latest'
 
 - name: Install OctoPrint via pip - the defined version.
-  pip:
+  ansible.builtin.pip:
     name: octoprint
     version: "=={{ octoprint_version }}"
     state: present
@@ -64,33 +64,33 @@
   when: octoprint_version != 'latest'
 
 - name: Install config.yaml template.
-  template:
+  ansible.builtin.template:
     src: config.yaml.j2
     dest: "{{ install_dir }}/.octoprint/config.yaml"
     owner: "{{ octoprint_user }}"
   when: reset_config
 
 - name: Install init template.
-  template:
+  ansible.builtin.template:
     src: octoprint.init.j2
     dest: /etc/init.d/octoprint
     mode: +x
     owner: "{{ octoprint_user }}"
 
 - name: Install default template.
-  template:
+  ansible.builtin.template:
     src: octoprint.default.j2
     dest: /etc/default/octoprint
     owner: "{{ octoprint_user }}"
 
 - name: Install systemd service template.
-  template:
+  ansible.builtin.template:
     src: octoprint.service.j2
     dest: /etc/systemd/system/octoprint.service
     owner: "{{ octoprint_user }}"
 
 - name: Add lines to sudoers.
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sudoers
     state: present
     line: "{{ item }}"
@@ -99,14 +99,11 @@
     - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart octoprint"
     - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl start octoprint"
     - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop octoprint"
-    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart mjpg_streamer"
-    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl start mjpg_streamer"
-    - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/bin/systemctl stop mjpg_streamer"
     - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/sbin/shutdown -r now"
     - "{{ octoprint_user }} ALL=(ALL) NOPASSWD:/usr/sbin/shutdown -h now"
 
 - name: Change ownership of install directory.
-  file:
+  ansible.builtin.file:
     path: "{{ install_dir }}"
     state: directory
     recurse: true
@@ -114,7 +111,7 @@
     group: "{{ octoprint_user }}"
 
 - name: Start the octoprint service.
-  systemd:
+  ansible.builtin.systemd:
     name: octoprint
     enabled: true
     state: restarted

@@ -19,12 +19,10 @@ galaxy_info:
         - jammy
 
   galaxy_tags:
-  - octoprint
-  - octopi
-  - raspbian
-  - raspberry
-  - rpi
-  - raspberrypi
-  - mjpgstreamer
-
-  dependencies: []
+    - octoprint
+    - octopi
+    - raspbian
+    - raspberry
+    - rpi
+    - raspberrypi
+    - mjpgstreamer
